@@ -10,14 +10,14 @@ import { useRouter } from "next/navigation"
 import { useState, useTransition } from "react"
 import { toast } from "sonner"
 
-export function LoginForm() {
+export function SignupForm() {
     const router = useRouter();
     const [githubPending, startGithubTransition] = useTransition()
     const [googlePending, startGoogleTransition] = useTransition()
     const [emailPending, startEmailTransition] = useTransition()
     const [email, setEmail] = useState("");
 
-    async function signInWithGithub() {
+    async function signUpWithGithub() {
         startGithubTransition(async () => {
             await authClient.signIn.social({
                 provider: 'github',
@@ -34,7 +34,7 @@ export function LoginForm() {
         });
     }
 
-    async function signInWithGoogle() {
+    async function signUpWithGoogle() {
         startGoogleTransition(async () => {
             await authClient.signIn.social({
                 provider: 'google',
@@ -51,7 +51,7 @@ export function LoginForm() {
         });
     }
 
-    function signInWithEmail() {
+    function signUpWithEmail() {
         startEmailTransition(async () => {
             await authClient.emailOtp.sendVerificationOtp({
                 email: email,
@@ -81,16 +81,16 @@ export function LoginForm() {
                     <Code className="size-8" />
                 </div>
                 </Link>
-                <h1 className="text-xl font-bold">Log in to Codewithgenz</h1>
+                <h1 className="text-xl font-bold">Create a Codewithgenz Account</h1>
                 <FieldDescription>
-                Don&apos;t have an account? <Link href="/signup">Sign up</Link>
+                Already have an account?? <Link href="/login">Log in</Link>
                 </FieldDescription>
             </div>
             <Field className="grid gap-4 sm:grid-cols-2">
-                <Button disabled={githubPending} onClick={signInWithGithub} variant="outline" type="button" className="cursor-pointer">
+                <Button disabled={githubPending} onClick={signUpWithGithub} variant="outline" type="button" className="cursor-pointer">
                     {githubPending ? (
                         <>
-                            <Loader className="size-4 animate-spin" />
+                            <Loader className="size-4 animate-spin" /> 
                             <span>Loading...</span> 
                         </>
                     ) : (
@@ -105,10 +105,10 @@ export function LoginForm() {
                         </>
                     )}
                 </Button>
-                <Button disabled={googlePending} onClick={signInWithGoogle} variant="outline" type="button" className="cursor-pointer">
+                <Button disabled={googlePending} onClick={signUpWithGoogle} variant="outline" type="button" className="cursor-pointer">
                     {googlePending ? (
                         <>
-                            <Loader className="size-4 animate-spin" />
+                            <Loader className="size-4 animate-spin" /> 
                             <span>Loading...</span> 
                         </>
                     ) : (
@@ -136,21 +136,21 @@ export function LoginForm() {
                 />
             </Field>
             <Field>
-                <Button onClick={signInWithEmail} disabled={emailPending} className="cursor-pointer">
+                <Button onClick={signUpWithEmail} disabled={emailPending} className="cursor-pointer">
                     {emailPending ? (
                         <>
                             <Loader className="size-4 animate-spin" />
                             <span>Loading...</span>
                         </>
                     ) : (
-                        "Log In"
+                        "Create Account"
                     )}
                 </Button>
             </Field>
             </FieldGroup>
         </form>
         <FieldDescription className="px-6 text-center">
-            By signing in, you agree to our <a href="#">Terms of Service</a>{" "}
+            By signing up, you agree to our <a href="#">Terms of Service</a>{" "}
             and <a href="#">Privacy Policy</a>.
         </FieldDescription>
     </div>

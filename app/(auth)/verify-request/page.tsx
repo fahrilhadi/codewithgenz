@@ -5,6 +5,7 @@ import { Field, FieldDescription, FieldGroup, FieldLabel } from "@/components/ui
 import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "@/components/ui/input-otp";
 import { authClient } from "@/lib/auth-client";
 import { Code, Loader } from "lucide-react";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
@@ -39,15 +40,15 @@ export default function VerifyRequest() {
             <form>
                 <FieldGroup>
                 <div className="flex flex-col items-center gap-2 text-center">
-                    <a
-                    href="#"
+                    <Link
+                    href="/"
                     className="flex flex-col items-center gap-2 font-medium"
                     >
                     <div className="flex size-8 items-center justify-center rounded-md">
                         <Code className="size-8" />
                     </div>
                     <span className="sr-only">Codewithgenz</span>
-                    </a>
+                    </Link>
                     <h1 className="text-xl font-bold">Enter verification code</h1>
                     <FieldDescription>
                     We sent a 6-digit code to your email address
@@ -76,9 +77,6 @@ export default function VerifyRequest() {
                         <InputOTPSlot index={5} />
                     </InputOTPGroup>
                     </InputOTP>
-                    <FieldDescription className="text-center">
-                    Didn&apos;t receive the code? <a href="#">Resend</a>
-                    </FieldDescription>
                 </Field>
                 <Field>
                     <Button onClick={verifyOtp} disabled={emailPending || !isOtpCompleted} className="cursor-pointer">
